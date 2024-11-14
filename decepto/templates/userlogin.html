@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+UserLogin|decepto
+{% endblock %}
+
+{% block mainH %}
+<h1>Login|User</h1>
+{% endblock%}
+
+{% block description %}
+Watch where you are going❗⚠️
+{% endblock%}
+
+{% block titlesub %} 
+User Login
+{% endblock%} 
+
+{% block content %}
+<div class="reg-main">
+    {% if messages %}
+    <div class="alert alert-info p-2" role="alert">
+        <ul class="mb-1">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+    <h2>User Login</h2>
+    <form action="{% url 'userlogin' %}" method="POST">
+        {% csrf_token %}
+        <input placeholder="Enter your e-mail id" type="email" id="username" name="email" required />
+     
+        <input placeholder="Enter your password " type="password" id="password" name="password" required />
+
+         <button type="submit">Log In</button>
+        <p>Dont have an account? <a href="{% url 'register'%}"> Sign Up</a> </p>
+    </form>
+    
+</div>
+{% endblock %}

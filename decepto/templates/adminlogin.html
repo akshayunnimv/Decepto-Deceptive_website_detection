@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+AdminLogin|decepto
+{% endblock %}
+
+{% block mainH %}
+<h1>Welcome back Boss🫡</h1>
+{% endblock%}
+
+{% block description %}
+
+{% endblock%}
+
+{% block titlesub %} 
+Admin Login
+{% endblock%} 
+
+{% block content %}
+<div class="reg-main">
+    {% if messages %}
+    <div class="alert alert-info p-2" role="alert">
+        <ul class="mb-1">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+    <h2>Admin Login</h2>
+    <form action="{% url 'adminlogin' %}" method="POST">
+        {% csrf_token %}
+        
+        <input placeholder="Enter your e-mail id" type="email" id="uname" name="email" required />
+     
+        <input placeholder="Enter your password " type="password" id="pswd" name="password" required />
+
+         <button type="submit">Log In</button>
+       
+    </form>
+</div>
+{% endblock %}

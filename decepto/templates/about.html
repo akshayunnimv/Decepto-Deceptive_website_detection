@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+About|decepto
+{% endblock %}
+
+{% block mainH %}
+<h1>About Us</h1>
+{% endblock%}
+
+{% block description %}
+
+{% endblock%}
+
+{% block titlesub %} 
+About us
+{% endblock%} 
+
+{% block content %}
+<section id="about" class="about section light-background">
+
+    <div class="container">
+
+      <div class="row gy-4">
+        <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="100">
+          <img src="{% static '/images/about.jpg' %}" class="img-fluid" alt="">
+          <a href="https://www.youtube.com/watch?v=qS4ViqnjkC8" class="glightbox pulsating-play-btn"></a>
+        </div>
+        <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="200">
+          <h3>Why Decepto?</h3>
+          <p class="fst-italic">
+           In this digital era cyber crimes are balloning up and many new methods are popping up daily only to decieve us.in this scenario 
+           it is important that each and every one of us should be aware of such heinous crimes and we must be safe in the cyberspace and should not be
+           vulnerable to any type of cyber crimes.<br>To ensure your safety:
+          </p>
+          <ul>
+            <li><i class="bi bi-check2-all"></i> <span>We are delivering you a platform to check any urls before accessing.</span></li>
+            <li><i class="bi bi-check2-all"></i> <span>This is a platform where you can comment or review about the websites.</span></li>
+            <li><i class="bi bi-check2-all"></i> <span>We create awareness about cyber crimes inorder for the public to be safe<br>As they say:<i>"prevention is better than cure"</i>.</span></li>
+          </ul>
+          <p>
+            Here we provide you a detailed video about cybercrimes.Please feel free to check it and be aware of those stinky eyes trying
+            to peek into your lives
+          </p>
+        </div>
+      </div>
+
+    </div>
+<!-- Testimonials Section -->
+<section id="testimonials" class="testimonials section">
+
+  <!-- Section Title -->
+  <div class="container section-title" data-aos="fade-up">
+    <h2>Deceptive Website Detection</h2>
+    <p style=" text-align: justify; text-justify: inter-word;">The website is all about keeping You Safe from internet vulnerabilites.A majority of the overall population in the world
+      uses internet in their day-to-day life, most of them share their professional and personal details online.Since the rise of the digital era 
+      every documents and legal forms are digitized and kept in memory storages locally or acroos the cloud.In this cyber era data worth more than any
+      liquid assets, hence the cyber criminals want to get a hold of this data while breaking and entering into our personal life.To some extent
+      We are letting them hack us by falling for their traps, doing exactly what they want us to do.
+    </p><br>
+    <p style=" text-align: justify; text-justify: inter-word;">
+    The only way we can avoid this to minimum extent is by being careful.<i>"verify before we click"</i>.Our website helps you to detect the malwares
+    and phishing websites for you.We use an integrated system of NLP and API validation to ensure your safety.Safe browsing is a need in the current
+    era and most platforms cannot offer us that so we are stepping up and saving your lives from the hackers and cybercriminals who are peeping into your life. 
+    </p>
+  </div><!-- End Section Title -->
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide">
+      <div class="testimonial-item">
+        <img src="{% static 'images/akshay.jpg' %}"  class="testimonial-img" alt="">
+        <h3>Akshay Unni M V</h3>
+        <h4>Ceo &amp; Founder</h4>
+        
+        <p>
+          <i class="bi bi-quote quote-icon-left"></i>
+          <span>Times have changed a lot.Food,water,air,shelter and browsing are the basic needs now </span>
+          <i class="bi bi-quote quote-icon-right"></i>
+        </p>
+      </div>
+    </div><!-- End testimonial item -->
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends 'userBase.html' %}
+
+{% load static %}
+
+{% block title %}
+Profile | User
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3 d-flex justify-content-center">
+    <div class="card p-3" style="max-width: 500px; width: 100%;">
+        <h3 class="text-center mb-3">Profile Details</h3>
+
+        <!-- Display Success or Error messages -->
+        {% if messages %}
+            <div class="alert alert-info p-2" role="alert">
+                <ul class="mb-1">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <!-- Display Profile Details -->
+        <div class="mb-3">
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Contact Number:</strong> {{ user.contact_number }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+
+        <!-- Trigger modal -->
+        <div class="text-center">
+            <button type="button" class="btn btn-sm" style="background-color: #68a4c4; border: none; width: 140px; padding: 10px 0;" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                Edit Profile
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for editing profile -->
+<div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-2">
+                        <label for="name" class="form-label">Name:</label>
+                        <input type="text" id="name" name="name" class="form-control" value="{{ user.name }}" required pattern="[A-Za-z\s]+" title="Letters only">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="contact_number" class="form-label">Contact Number:</label>
+                        <input type="text" id="contact_number" name="contact_number" class="form-control" value="{{ user.contact_number }}" required pattern="\d{10}" title="Enter a valid 10-digit phone number">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+                    </div>
+
+                    <h6 class="mt-2">Change Password (Optional)</h6>
+
+                    <div class="mb-2">
+                        <label for="password" class="form-label">New Password:</label>
+                        <input type="password" id="password" name="password" class="form-control" pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$" title="Password must be at least 8 characters">
+                    </div>
+
+                    <div class="mb-2">
+                        <label for="confirm_password" class="form-label">Re-enter Password:</label>
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-sm" style="background-color: #68a4c4; border: none; width: 135px ">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

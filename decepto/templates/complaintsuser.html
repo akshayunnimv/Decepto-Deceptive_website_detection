@@ -1,0 +1,37 @@
+{% extends 'userBase.html' %}
+
+{% load static %}
+
+{% block title %}
+complaints|user
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="user-container">
+    <div class="user-main">
+        {% if messages %}
+<div class="alert alert-info p-2" role="alert">
+    <ul class="mb-1">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+        <h2>Send complaints</h2>
+        <form action="{% url 'complaintuser' %}" method="POST">
+            {% csrf_token %}
+            <input placeholder="Enter your message" type="text" id="complaint" name="complaint" required />
+
+            <button type="submit">Send Message</button>
+    
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

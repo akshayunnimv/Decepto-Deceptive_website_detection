@@ -1,0 +1,123 @@
+{% extends 'admin_base.html' %}
+
+{% load static %}
+
+{% block title %}
+Report | Admin
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+    <h2 class="text-center mb-4">Threats Report</h2>
+
+    <!-- Category Buttons -->
+    <div class="btn-group mb-3" role="group" aria-label="Category Buttons">
+        <button type="button" class="btn btn-category" onclick="fetchCategoryData('phishing')">Phishing</button>
+        <button type="button" class="btn btn-category" onclick="fetchCategoryData('malware')">Malware</button>
+        <button type="button" class="btn btn-category" onclick="fetchCategoryData('defacement')">Defacement</button>
+        <button type="button" class="btn btn-category" onclick="fetchCategoryData('all')">All</button>
+    </div>
+
+    <!-- Area to display the category data -->
+    <div class="mt-4" id="category-data">
+        <p>Select a category to display its details.</p>
+    </div>
+
+    <!-- Download Report Button - initially disabled and hidden -->
+    <div class="mt-4" id="download-button-container" style="display: none;">
+        <a href="#" id="download-report-btn" class="btn btn-download" disabled>Download Report</a>
+    </div>
+</div>
+
+<!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    let selectedCategory = ''; // Keep track of the selected category
+
+    function fetchCategoryData(category, page = 1) {
+        $.ajax({
+            url: "{% url 'admin_report' %}",  // Your view URL
+            type: "POST",
+            data: {
+                'category': category,
+                'page': page,  // Send the page number
+                'csrfmiddlewaretoken': '{{ csrf_token }}'
+            },
+            success: function(response) {
+                // Replace the content in the category-data div with the new data
+                $('#category-data').html(response.html);
+                
+                // Enable the download button and show it
+                $('#download-button-container').show(); // Show the button container
+                $('#download-report-btn').prop('disabled', false); // Enable the button
+
+                // Set the href for the download button with the correct category URL
+                selectedCategory = category;
+                $('#download-report-btn').attr('href', `/download_category_data/${category}/`);
+            },
+            error: function() {
+                alert("An error occurred while fetching data.");
+            }
+        });
+    }
+</script>
+
+<style>
+    /* Center-align the container and buttons */
+    .text-center {
+        text-align: center;
+    }
+
+    /* Styling the category buttons */
+    .btn-category {
+        background-color: white;
+        color: black;
+        border: 1px solid #ccc;
+        padding: 10px 30px; /* Ensuring all buttons are the same size */
+        margin: 5px;
+        font-size: 16px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Hover effect for category buttons */
+    .btn-category:hover {
+        background-color: #68a4c4;
+        color: white;
+    }
+
+    /* Download button styling */
+    .btn-download {
+        background-color: #68a4c4; /* Initial background color */
+        color: white;               /* Initial text color */
+        border: 2px solid #68a4c4;
+        padding: 10px 40px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        text-decoration: none;
+    }
+
+    .btn-download:disabled {
+        background-color: #ccc;
+        border-color: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+
+    /* Hover effect for the download button */
+    .btn-download:hover {
+        background-color: #4d86a7; /* Darker shade of blue on hover */
+        color: white !important;   /* Ensuring text color remains white */
+    }
+
+    /* Responsive design: Ensure buttons align well on smaller screens */
+    @media (max-width: 576px) {
+        .btn-category, .btn-download {
+            width: 100%;
+        }
+    }
+</style>
+
+
+{% endblock %}

@@ -1,0 +1,122 @@
+{% extends 'admin_base.html' %}
+
+{% load static %}
+
+{% block title %}
+complaints | admin
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Complaints/Feedback</h2>
+
+    <!-- Display success/error messages -->
+    {% if messages %}
+        <div class="alert alert-info p-2" role="alert">
+            <ul class="mb-1">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <ul class="list-group mb-4">
+                {% for complaint in complaints %}
+                    <li class="list-group-item mb-3 p-3 review-item" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s, background-color 0.3s;">
+                        <p><strong>Message:</strong> {{ complaint.complaint }}</p>
+                        <p><strong>Status:</strong> {{ complaint.status }}</p>
+                        <p><strong>Reply:</strong> {{ complaint.reply }}</p>
+                        <p><strong>Submitted at:</strong> {{ complaint.date }}</p>
+                        <p><strong>Submitted by:</strong> {{ complaint.login_id.name}}</p>
+                        
+                        <!-- Send Reply Button -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#replyModal{{ complaint.id }}" style="background-color: #68a4c4;">
+                            Send Reply
+                        </button>
+
+                        <!-- Modal for Reply -->
+                        <div class="modal fade" id="replyModal{{ complaint.id }}" tabindex="-1" aria-labelledby="replyModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="replyModalLabel">Reply to Complaint</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <form method="POST" action="">
+                                        {% csrf_token %}
+                                        <div class="modal-body">
+                                            <input type="hidden" name="complaint_id" value="{{ complaint.id }}">
+                                            <div class="mb-3">
+                                                <label for="status" class="form-label">Status</label>
+                                                <select name="status" class="form-select">
+                                                    <option value="open" {% if complaint.status == 'open' %}selected{% endif %}>Open</option>
+                                                    <option value="in progress" {% if complaint.status == 'in progress' %}selected{% endif %}>In Progress</option>
+                                                    <option value="resolved" {% if complaint.status == 'resolved' %}selected{% endif %}>Resolved</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="reply" class="form-label">Reply</label>
+                                                <textarea class="form-control" name="reply" id="reply" rows="3">{{ complaint.reply }}</textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <!-- Send Reply Button inside Modal -->
+                                            <button type="submit" class="btn btn-primary" style="background-color: #68a4c4;">Send Reply</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% empty %}
+                    <li class="list-group-item text-center">No complaints available.</li>
+                {% endfor %}
+            </ul>
+
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    {% if complaints.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1" aria-label="First">
+                                <span aria-hidden="true">&laquo; First</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ complaints.previous_page_number }}">Previous</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item disabled">
+                        <span class="page-link">Page {{ complaints.number }} of {{ complaints.paginator.num_pages }}</span>
+                    </li>
+
+                    {% if complaints.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ complaints.next_page_number }}">Next</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ complaints.paginator.num_pages }}" aria-label="Last">
+                                <span aria-hidden="true">Last &raquo;</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS for hover effect -->
+<style>
+    .review-item:hover {
+        background-color: #f8f9fa; /* Light background color on hover */
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'admin_base.html' %}
+
+{% load static %}
+
+{% block title %}
+Check URL|admin
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+    <div style="width: 60%; margin: 0 auto; margin-top: 20px;">
+        {% for message in messages %}
+            <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %} text-center">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div class="user-container">
+    <div class="user-main">
+        <h2>Check Your Link Here</h2>
+
+        <!-- Display prediction message if available -->
+       
+
+        <!-- URL check form -->
+        <form action="{% url 'admin_checkurl' %}" method="POST" style="width: 50%; margin: 0 auto;">
+            {% csrf_token %}
+            <input placeholder="Enter the URL" type="text" id="url" name="url" required style="width: 100%;" />
+            <button type="submit">Check Now</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

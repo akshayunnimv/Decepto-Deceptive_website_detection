@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Register|decepto
+{% endblock %}
+
+{% block mainH %}
+<h1>Join us and shield your systems </h1>
+{% endblock%}
+
+{% block description %}
+Register with us and begin a journey of safe browsing 
+{% endblock%}
+
+{% block titlesub %} 
+Registration
+{% endblock%} 
+
+{% block content %}
+<div class="reg-main">
+    {% if messages %}
+    <div class="alert alert-info p-2" role="alert">
+        <ul class="mb-1">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+    <h2>Registration </h2>
+ 
+
+    <form action="{% url 'register' %}" method="post">  
+        {% csrf_token %}
+        <input placeholder="Enter your name" type="text" id="Name" name="Name" required />
+
+        <input placeholder="Enter your e-mail id" type="email" id="email" name="email" required />
+
+        <input placeholder="Enter your Password" type="password" id="password" name="password"
+               pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])\S{8,}$" 
+               title="Password must contain at least one number, 
+                       one alphabet, one symbol, and be at 
+                       least 8 characters long" required />
+
+         <input placeholder="Re-Enter your password" type="password" id="repassword" name="repassword" required oninput="this.setCustomValidity(this.value !== document.getElementById('password').value ? 'Passwords do not match.' : '')" />
+
+        <input pattern='^(?=.*[0-9])\S{10}$' placeholder="Enter your mobile number" type="text" id="mobile" name="mobile" title="Mobile number must contain 10 digits" required />
+
+        <button type="submit">Sign Up</button>
+        <p>Already a registered user? <a href="{% url 'userlogin'%}"> Sign In</a> </p>
+    </form>
+   
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'userBase.html' %}
+
+{% load static %}
+
+{% block title %}
+review|user
+{% endblock %}
+
+{% block content %}
+
+
+
+<div class="user-container">
+
+    <div class="user-main">
+        {% if messages %}
+        <div class="alert alert-info p-2" role="alert">
+            <ul class="mb-1">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        <h2>Add a Review</h2>
+        <form action="{% url 'reviewuser' %}" method="POST">
+            {% csrf_token %}
+            <input placeholder="Enter the URL" type="text" id="url" name="url" required />
+            <input placeholder="Enter the review" type="text" id="review" name="review" required />
+
+            <button type="submit">Add review</button>
+
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

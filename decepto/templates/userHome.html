@@ -1,0 +1,79 @@
+{% extends 'userBase.html' %}
+
+{% load static %}
+
+{% block title %}
+home | user
+{% endblock %}
+
+{% block content %}
+<h5 style="margin-top: 2rem; margin-left: 8rem;">Hello , &nbsp; {{user.name}}</h5>
+<div class="container mt-5 text-center">
+   
+        
+   <br><br><br>
+   
+    <h2>Total Threats Found Till Now: <span style="color: red;">{{ total_count }}</span> </h2>
+
+    <!-- Add spacing between h2 and cards -->
+    <div class="row justify-content-center mt-5">
+        <!-- Phishing Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-lg rounded card-hover" style="min-height: 150px;">
+                <div class="card-body">
+                    <!-- Bootstrap icon for phishing -->
+                    <i class="bi bi-shield-lock" style="font-size: 2rem; color: #68a4c4;"></i>
+                    <h5 class="mt-3">Phishing</h5>
+                    <p><span style="color: red;">{{ phishing_count }}</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Malware Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-lg rounded card-hover" style="min-height: 150px;">
+                <div class="card-body">
+                    <!-- Bootstrap icon for malware -->
+                    <i class="bi bi-bug" style="font-size: 2rem; color: #68a4c4;"></i>
+                    <h5 class="mt-3">Malware</h5>
+                    <p><span style="color: red;">{{ malware_count }}</span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Defacement Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card shadow-lg rounded card-hover" style="min-height: 150px;">
+                <div class="card-body">
+                    <!-- Bootstrap icon for defacement -->
+                    <i class="bi bi-mask"" style="font-size: 2rem; color: #68a4c4;"></i>
+                    <h5 class="mt-3">Defacement</h5>
+                    <p><span style="color: red;">{{ defacement_count }}</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</div>
+
+
+
+<!-- Custom CSS for hover effects -->
+<style>
+    .card-hover:hover {
+        background-color: #f1f1f1; /* Change background on hover */
+        transition: 0.3s ease; /* Smooth transition */
+        transform: translateY(-5px); /* Lift card on hover */
+    }
+    .card {
+        border: none; /* Remove card border */
+    }
+    .card-body {
+        text-align: center; /* Center text in the card */
+    }
+    .card-hover {
+        cursor: pointer; /* Add pointer on hover */
+    }
+</style>
+{% endblock %}
