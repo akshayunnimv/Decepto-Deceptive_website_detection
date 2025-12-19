@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9pnk%bi24yh678uvhf3ljhy$tw9c$8t^ny)z%z@wqc)ufsfi(u'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -138,6 +138,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 # Other session settings
 SESSION_COOKIE_SECURE = False  # Set to True in production (using HTTPS)
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
-GOOGLE_SAFE_BROWSING_API_KEY = 'AIzaSyAU4q3lk4q5KHc0Bet4no-OpoNRGJklA0g'
+GOOGLE_SAFE_BROWSING_API_KEY = 'Your API KEY'
 
 
