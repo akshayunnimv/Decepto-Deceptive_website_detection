@@ -208,7 +208,7 @@ def checkuser(request):
         prediction = rf_model.predict(X_new)
         predicted_label = label_encoder.inverse_transform(prediction)[0]
 
-        safe_browsing_url = f'https://safebrowsing.googleapis.com/v4/threatMatches:find?key={GOOGLE_SAFE_BROWSING_API_KEY}'
+        safe_browsing_url = ''
         payload = {
             "client": {"clientId": "your-client-id", "clientVersion": "1.0"},
             "threatInfo": {
